@@ -14,7 +14,26 @@ SourceClear CLI
 1. Download SourceClear API Swagger specification file ([sca_v1_spec_sca.json](https://help.veracode.com/viewer/book-attachment/LMv_dtSHyb7iIxAQznC~9w/TJ9aAyVCY8DBEwCSH89EQQ)).
 1. Generate an API client.
     ```bash
+    # NOTE: go-swagger does not support Go module yet.
+    # Your source tree must be in GOPATH.
+    # You must hit `direnv deny` and deactivate Go module if you use direnv. 
     $ swagger generate client -f ./swagger/sca_v1_spec_sca.json
+    ...
+    2019/01/01 12:00:00 Generation completed!
+
+    For this generation to compile you need to have some packages in your GOPATH:
+
+            * github.com/go-openapi/errors
+            * github.com/go-openapi/runtime
+            * github.com/go-openapi/runtime/client
+            * github.com/go-openapi/strfmt
+
+    You can get these now with: go get -u -f ./...
+    
+    # activate Go module
+    $ direnv allow
+    $ go get -u -f ./...
+    $ go mod tidy
     ```
 
 ## Known Issues
