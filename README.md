@@ -3,7 +3,7 @@ SourceClear CLI
 
 ## Development
 
-1. Install go-swagger
+1. Install `go-swagger`
     ```bash
     $ sudo curl -L -o /usr/local/bin/swagger https://github.com/go-swagger/go-swagger/releases/download/v0.19.0/swagger_linux_amd64
     $ chmod 755 /usr/local/bin/swagger
@@ -12,7 +12,7 @@ SourceClear CLI
     commit: 312366608bbf17dd219190b66ab63bdc8b4d0db0
     ```
 1. Download SourceClear API Swagger specification file ([sca_v1_spec_sca.json](https://help.veracode.com/viewer/book-attachment/LMv_dtSHyb7iIxAQznC~9w/TJ9aAyVCY8DBEwCSH89EQQ)).
-1. Generate an API client.
+1. Generate an API client by `go-swagger`.
     ```bash
     # NOTE: go-swagger does not support Go module yet.
     # Your source tree must be in GOPATH.
@@ -34,6 +34,19 @@ SourceClear CLI
     $ direnv allow
     $ go get -u -f ./...
     $ go mod tidy
+    ```
+1. Generate a CLI template by `cobra`.
+    ```bash
+    $ go get -u github.com/spf13/cobra/cobra
+    $ cobra init --pkg-name github.com/wdstar/srcclr-cli
+    $ go mod tidy
+    $ go build
+    $ ./srcclr-cli
+    ```
+1. Add sub commands.
+    ```bash
+    $ cobra add version -p "rootCmd"
+    $ cobra add get     -p "rootCmd"
     ```
 
 ## Known Issues
