@@ -5,6 +5,7 @@
 *.so
 *.dylib
 srcclr-cli
+dist/
 
 # Test binary, build with `go test -c`
 *.test
