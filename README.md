@@ -17,7 +17,7 @@ SourceClear CLI
     # NOTE: go-swagger does not support Go module yet.
     # Your source tree must be in GOPATH.
     # You must hit `direnv deny` and deactivate Go module if you use direnv. 
-    $ swagger generate client -f ./swagger/sca_v1_spec_sca.json
+    $ swagger generate client -f ./swagger/sca_v1_spec_oas2.json
     ...
     2019/01/01 12:00:00 Generation completed!
 
@@ -68,9 +68,9 @@ SourceClear CLI
 ### Invalid swagger specs
 
 ```bash
-$ swagger validate swagger/sca_v1_spec_sca.json 
+$ swagger validate swagger/sca_v1_spec_oas2.json 
 ...
-The swagger spec at "swagger/sca_v1_spec_sca.json" is invalid against swagger specification 2.0.
+The swagger spec at "swagger/sca_v1_spec_oas2.json" is invalid against swagger specification 2.0.
 See errors below:
 - default value for status in query does not validate its schema
 - status in query must be of type array: "string"
