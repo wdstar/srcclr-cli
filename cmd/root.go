@@ -20,13 +20,22 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
+
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
+	httptransport "github.com/go-openapi/runtime/client"
+	apiclient "github.com/wdstar/srcclr-cli/client"
 )
 
-var cfgFile string
+var (
+	cfgFile  string
+	client   *apiclient.VeracodeSourceClearAPISpecification
+	hmacAuth runtime.ClientAuthInfoWriter
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -64,6 +73,19 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+	// Default client for SourceClear API
+	//client = apiclient.Default
+	// Custom client
+	transport := httptransport.New("api.sourceclear.io", "/", nil)
+	client = apiclient.New(transport, strfmt.Default)
+	hmacAuth = runtime.ClientAuthInfoWriterFunc(
+		func(r runtime.ClientRequest, _ strfmt.Registry) error {
+			// TODO: Enabling HMAC Authentication
+			// https://help.veracode.com/reader/LMv_dtSHyb7iIxAQznC~9w/hn2qc_7fz3zFYV~e4ulRaQ
+			hmacStr := "********"
+			return r.SetHeaderParam("Authorization", hmacStr)
+		})
 }
 
 // initConfig reads in config file and ENV variables if set.

@@ -39,7 +39,7 @@ func (a *Client) GetScanUsingGET(params *GetScanUsingGETParams) (*GetScanUsingGE
 		PathPattern:        "/v3/scans/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetScanUsingGETReader{formats: a.formats},
 		Context:            params.Context,

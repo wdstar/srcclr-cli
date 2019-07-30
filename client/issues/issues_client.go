@@ -39,7 +39,7 @@ func (a *Client) GetIssueUsingGET(params *GetIssueUsingGETParams) (*GetIssueUsin
 		PathPattern:        "/v3/issues/{id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIssueUsingGETReader{formats: a.formats},
 		Context:            params.Context,
