@@ -36,9 +36,6 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("get called")
 
-		// Note: We must set each `runtime.ClientOperation.AuthInfo` to `runtime.ClientAuthInfoWriter` (HMAC).
-		// But we can not do it.
-		//runtime.ClientOperation.AuthInfo = hmacAuth
 		resp, err := client.Workspaces.GetWorkspacesUsingGET(nil)
 		if err != nil {
 			log.Fatal(err)

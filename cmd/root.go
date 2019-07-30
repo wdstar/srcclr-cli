@@ -26,8 +26,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	homedir "github.com/mitchellh/go-homedir"
 	httptransport "github.com/go-openapi/runtime/client"
+	homedir "github.com/mitchellh/go-homedir"
 	apiclient "github.com/wdstar/srcclr-cli/client"
 )
 
@@ -75,10 +75,10 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 	// Default client for SourceClear API
-	//client = apiclient.Default
+	client = apiclient.Default
 	// Custom client
-	transport := httptransport.New("api.sourceclear.io", "/", nil)
-	client = apiclient.New(transport, strfmt.Default)
+	//client = apiclient.New(
+	//	httptransport.New("api.sourceclear.io", "/", []string{"https"}), strfmt.Default)
 	hmacAuth = runtime.ClientAuthInfoWriterFunc(
 		func(r runtime.ClientRequest, _ strfmt.Registry) error {
 			// TODO: Enabling HMAC Authentication
@@ -86,6 +86,16 @@ func init() {
 			hmacStr := "********"
 			return r.SetHeaderParam("Authorization", hmacStr)
 		})
+
+	switch transport := client.Transport.(type) {
+	case *httptransport.Runtime:
+		transport.DefaultAuthentication = hmacAuth
+		// Child clients
+		client.Issues.SetTransport(transport)
+		client.Registry.SetTransport(transport)
+		client.Scans.SetTransport(transport)
+		client.Workspaces.SetTransport(transport)
+	}
 }
 
 // initConfig reads in config file and ENV variables if set.
