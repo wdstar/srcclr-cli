@@ -27,7 +27,7 @@ type Client struct {
 /*
 GetIssueUsingGET gets issue
 */
-func (a *Client) GetIssueUsingGET(params *GetIssueUsingGETParams) (*GetIssueUsingGETOK, error) {
+func (a *Client) GetIssueUsingGET(params *GetIssueUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetIssueUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIssueUsingGETParams()
@@ -42,6 +42,7 @@ func (a *Client) GetIssueUsingGET(params *GetIssueUsingGETParams) (*GetIssueUsin
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIssueUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
