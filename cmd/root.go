@@ -87,6 +87,7 @@ func init() {
 			return r.SetHeaderParam("Authorization", hmacStr)
 		})
 
+	// In the case the swagger specs has NO security definitions
 	switch transport := client.Transport.(type) {
 	case *httptransport.Runtime:
 		transport.DefaultAuthentication = hmacAuth

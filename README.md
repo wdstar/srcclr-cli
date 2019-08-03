@@ -17,7 +17,7 @@ SourceClear CLI
     # NOTE: go-swagger does not support Go module yet.
     # Your source tree must be in GOPATH.
     # You must hit `direnv deny` and deactivate Go module if you use direnv. 
-    $ swagger generate client -f ./swagger/sca_v1_spec_oas2.json --default-scheme=https
+    $ swagger generate client -f ./swagger/sca_v1_spec_with_sec_oas2.json --default-scheme=https
     ...
     2019/01/01 12:00:00 Generation completed!
 

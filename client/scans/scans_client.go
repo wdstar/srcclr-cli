@@ -27,7 +27,7 @@ type Client struct {
 /*
 GetScanUsingGET gets scan
 */
-func (a *Client) GetScanUsingGET(params *GetScanUsingGETParams) (*GetScanUsingGETOK, error) {
+func (a *Client) GetScanUsingGET(params *GetScanUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetScanUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetScanUsingGETParams()
@@ -42,6 +42,7 @@ func (a *Client) GetScanUsingGET(params *GetScanUsingGETParams) (*GetScanUsingGE
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetScanUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

@@ -29,7 +29,7 @@ GetIssuesUsingGET gets issues
 
 Get issues for the given workspace. Note: if a project Default Branch is set, only issues from scans of that branch will be displayed.
 */
-func (a *Client) GetIssuesUsingGET(params *GetIssuesUsingGETParams) (*GetIssuesUsingGETOK, error) {
+func (a *Client) GetIssuesUsingGET(params *GetIssuesUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetIssuesUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIssuesUsingGETParams()
@@ -44,6 +44,7 @@ func (a *Client) GetIssuesUsingGET(params *GetIssuesUsingGETParams) (*GetIssuesU
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIssuesUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -59,7 +60,7 @@ GetWorkspaceUsingGET gets workspace
 
 Get single workspace.
 */
-func (a *Client) GetWorkspaceUsingGET(params *GetWorkspaceUsingGETParams) (*GetWorkspaceUsingGETOK, error) {
+func (a *Client) GetWorkspaceUsingGET(params *GetWorkspaceUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkspaceUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWorkspaceUsingGETParams()
@@ -74,6 +75,7 @@ func (a *Client) GetWorkspaceUsingGET(params *GetWorkspaceUsingGETParams) (*GetW
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetWorkspaceUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -89,7 +91,7 @@ GetWorkspacesUsingGET gets workspaces
 
 Get visible workspaces. Workspace visibility depends on workspace membership and user permissions.
 */
-func (a *Client) GetWorkspacesUsingGET(params *GetWorkspacesUsingGETParams) (*GetWorkspacesUsingGETOK, error) {
+func (a *Client) GetWorkspacesUsingGET(params *GetWorkspacesUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkspacesUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWorkspacesUsingGETParams()
@@ -104,6 +106,7 @@ func (a *Client) GetWorkspacesUsingGET(params *GetWorkspacesUsingGETParams) (*Ge
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetWorkspacesUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

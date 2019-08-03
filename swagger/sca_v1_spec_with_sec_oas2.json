@@ -1,0 +1,971 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Veracode SourceClear API Documentation",
+    "version": "3.0",
+    "title": "Veracode SourceClear API Specification"
+  },
+  "host": "api.sourceclear.io",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "issues",
+      "description": "Issue operations"
+    },
+    {
+      "name": "registry",
+      "description": "Registry operations"
+    },
+    {
+      "name": "scans",
+      "description": "Scan operations"
+    },
+    {
+      "name": "workspaces",
+      "description": "Workspace operations"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "hmacAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "hmacAuth": []
+    }
+  ],
+  "paths": {
+    "/v3/issues/{id}": {
+      "get": {
+        "tags": ["issues"],
+        "summary": "getIssue",
+        "operationId": "getIssueUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Issue"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/libraries/{id}": {
+      "get": {
+        "tags": ["registry"],
+        "summary": "getLibrary",
+        "operationId": "getLibraryUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Library"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/licenses/{id}": {
+      "get": {
+        "tags": ["registry"],
+        "summary": "getLicense",
+        "operationId": "getLicenseUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/License"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/scans/{id}": {
+      "get": {
+        "tags": ["scans"],
+        "summary": "getScan",
+        "operationId": "getScanUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Scan"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/vulnerabilities/{id}": {
+      "get": {
+        "tags": ["registry"],
+        "summary": "getVulnerability",
+        "operationId": "getVulnerabilityUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Vulnerability"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/workspaces": {
+      "get": {
+        "tags": ["workspaces"],
+        "summary": "getWorkspaces",
+        "description": "Get visible workspaces. Workspace visibility depends on workspace membership and user permissions.",
+        "operationId": "getWorkspacesUsingGET",
+        "parameters": [
+          {
+            "name": "filter[library]",
+            "in": "query",
+            "description": "The library name filter",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter[license]",
+            "in": "query",
+            "description": "The license name filter",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter[project]",
+            "in": "query",
+            "description": "The project name filter",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter[vulnerability]",
+            "in": "query",
+            "description": "The vulnerability title filter",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "filter[workspace]",
+            "in": "query",
+            "description": "The workspace name filter",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page of results that you want to retrieve (0..N).",
+            "required": false,
+            "type": "integer",
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The number of records per page",
+            "required": false,
+            "type": "integer",
+            "maximum": 2000,
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(asc|desc). The default order is ascending.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["name"]
+            },
+            "collectionFormat": "multi",
+            "enum": ["name"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "You have successfully submitted your request.",
+            "schema": {
+              "$ref": "#/definitions/PagedResources«Workspace»"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/workspaces/{id}": {
+      "get": {
+        "tags": ["workspaces"],
+        "summary": "getWorkspace",
+        "description": "Get single workspace.",
+        "operationId": "getWorkspaceUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The workspace ID.",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "x-example": "00000000-0000-0000-0000-000000000000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "You have successfully submitted your request.",
+            "schema": {
+              "$ref": "#/definitions/Workspace"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v3/workspaces/{id}/issues": {
+      "get": {
+        "tags": ["workspaces"],
+        "summary": "getIssues",
+        "description": "Get issues for the given workspace. Note: if a project Default Branch is set, only issues from scans of that branch will be displayed.",
+        "operationId": "getIssuesUsingGET",
+        "parameters": [
+          {
+            "name": "created_after",
+            "in": "query",
+            "description": "Filter by issues created on or after the specified date",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "created_before",
+            "in": "query",
+            "description": "created_before",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "direct",
+            "in": "query",
+            "description": "Filter by direct dependency",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "ignored",
+            "in": "query",
+            "description": "If true, show only ignored issues",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Results page you want to retrieve (0..N)",
+            "required": false,
+            "type": "integer",
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "format": "int32"
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "description": "Filter 0 or more project IDs",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter by issues matching the provided text search",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "severity_gt",
+            "in": "query",
+            "description": "Filter by issue severity greater than the provided value",
+            "required": false,
+            "type": "number",
+            "format": "float",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "severity_gte",
+            "in": "query",
+            "description": "Filter by issue severity greater than or equal to the provided value",
+            "required": false,
+            "type": "number",
+            "format": "float",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "severity_lt",
+            "in": "query",
+            "description": "Filter by issue severity less than the provided value",
+            "required": false,
+            "type": "number",
+            "format": "float",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "severity_lte",
+            "in": "query",
+            "description": "Filter by issue severity less than or equal to the provided value",
+            "required": false,
+            "type": "number",
+            "format": "float",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of records per page",
+            "required": false,
+            "type": "integer",
+            "maximum": 2000,
+            "exclusiveMaximum": false,
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default order is created date descending.",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["severity", "created_date"]
+            },
+            "collectionFormat": "multi",
+            "enum": ["severity", "created_date"]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by issue status",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["fixed", "open"]
+            },
+            "collectionFormat": "multi",
+            "enum": ["fixed", "open"],
+            "allowEmptyValue": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by issue type",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PagedResources«Issue»"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Issue": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "created_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fixed_scan": {
+          "$ref": "#/definitions/Scan"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "ignored": {
+          "type": "boolean"
+        },
+        "issue_status": {
+          "type": "string",
+          "enum": ["fixed", "open"]
+        },
+        "issue_type": {
+          "type": "string",
+          "enum": ["library", "license", "vulnerability"]
+        },
+        "library": {
+          "$ref": "#/definitions/Library"
+        },
+        "library_updated_release_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Only set for issue_type=library"
+        },
+        "library_updated_version": {
+          "type": "string",
+          "description": "Only set for issue_type=library"
+        },
+        "license": {
+          "description": "Only set for issue_type=license",
+          "$ref": "#/definitions/License"
+        },
+        "license_count": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Only set for issue_type=license"
+        },
+        "opened_scan": {
+          "$ref": "#/definitions/Scan"
+        },
+        "project_branch": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "project_name": {
+          "type": "string"
+        },
+        "project_tag": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "number",
+          "format": "float"
+        },
+        "site_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "vulnerability": {
+          "description": "Only set for issue_type=vulnerability",
+          "$ref": "#/definitions/Vulnerability"
+        },
+        "vulnerable_method": {
+          "type": "boolean",
+          "description": "Only set for issue_type=vulnerability"
+        },
+        "workspace_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "title": "Issue"
+    },
+    "Library": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "direct": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "enum": ["java", "js", "ruby", "python", "go", "php", "objectivec", "cpp", "csharp"]
+        },
+        "latest_version": {
+          "type": "string"
+        },
+        "latest_version_release_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "licenses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/License"
+          }
+        },
+        "line_count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "transitive": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "title": "Library"
+    },
+    "License": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "title": "License"
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "deprecation": {
+          "type": "string",
+          "xml": {
+            "name": "deprecation",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "href": {
+          "type": "string",
+          "xml": {
+            "name": "href",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "hreflang": {
+          "type": "string",
+          "xml": {
+            "name": "hreflang",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "media": {
+          "type": "string",
+          "xml": {
+            "name": "media",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "rel": {
+          "type": "string",
+          "xml": {
+            "name": "rel",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "templated": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string",
+          "xml": {
+            "name": "title",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "type": {
+          "type": "string",
+          "xml": {
+            "name": "type",
+            "attribute": true,
+            "wrapped": false
+          }
+        }
+      },
+      "title": "Link"
+    },
+    "PageMetadata": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "number",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "size",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "total_elements": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "total_elements",
+            "attribute": true,
+            "wrapped": false
+          }
+        },
+        "total_pages": {
+          "type": "integer",
+          "format": "int64",
+          "xml": {
+            "name": "total_pages",
+            "attribute": true,
+            "wrapped": false
+          }
+        }
+      },
+      "title": "PageMetadata"
+    },
+    "PagedResources«Issue»": {
+      "type": "object",
+      "properties": {
+        "_embedded": {
+          "type": "array",
+          "xml": {
+            "name": "embedded",
+            "attribute": false,
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Issue"
+          }
+        },
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "page": {
+          "$ref": "#/definitions/PageMetadata"
+        }
+      },
+      "title": "PagedResources«Issue»",
+      "xml": {
+        "name": "pagedEntities",
+        "attribute": false,
+        "wrapped": false
+      }
+    },
+    "PagedResources«Workspace»": {
+      "type": "object",
+      "properties": {
+        "_embedded": {
+          "type": "array",
+          "xml": {
+            "name": "embedded",
+            "attribute": false,
+            "wrapped": true
+          },
+          "items": {
+            "$ref": "#/definitions/Workspace"
+          }
+        },
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "page": {
+          "$ref": "#/definitions/PageMetadata"
+        }
+      },
+      "title": "PagedResources«Workspace»",
+      "xml": {
+        "name": "pagedEntities",
+        "attribute": false,
+        "wrapped": false
+      }
+    },
+    "Scan": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "branch": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "title": "Scan"
+    },
+    "Vulnerability": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "cve": {
+          "type": "string"
+        },
+        "cvss2": {
+          "type": "number",
+          "format": "float"
+        },
+        "cvss3": {
+          "type": "number",
+          "format": "float"
+        },
+        "disclosure_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "title": "Vulnerability"
+    },
+    "Workspace": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "xml": {
+            "name": "link",
+            "attribute": false,
+            "wrapped": false
+          },
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "last_scan_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "library_issues_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "license_issues_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "projects_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sandbox": {
+          "type": "boolean"
+        },
+        "total_issues_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "vulnerability_issues_count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Workspace"
+    }
+  }
+}

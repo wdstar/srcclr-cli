@@ -27,7 +27,7 @@ type Client struct {
 /*
 GetLibraryUsingGET gets library
 */
-func (a *Client) GetLibraryUsingGET(params *GetLibraryUsingGETParams) (*GetLibraryUsingGETOK, error) {
+func (a *Client) GetLibraryUsingGET(params *GetLibraryUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetLibraryUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLibraryUsingGETParams()
@@ -42,6 +42,7 @@ func (a *Client) GetLibraryUsingGET(params *GetLibraryUsingGETParams) (*GetLibra
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLibraryUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -55,7 +56,7 @@ func (a *Client) GetLibraryUsingGET(params *GetLibraryUsingGETParams) (*GetLibra
 /*
 GetLicenseUsingGET gets license
 */
-func (a *Client) GetLicenseUsingGET(params *GetLicenseUsingGETParams) (*GetLicenseUsingGETOK, error) {
+func (a *Client) GetLicenseUsingGET(params *GetLicenseUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetLicenseUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLicenseUsingGETParams()
@@ -70,6 +71,7 @@ func (a *Client) GetLicenseUsingGET(params *GetLicenseUsingGETParams) (*GetLicen
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLicenseUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -83,7 +85,7 @@ func (a *Client) GetLicenseUsingGET(params *GetLicenseUsingGETParams) (*GetLicen
 /*
 GetVulnerabilityUsingGET gets vulnerability
 */
-func (a *Client) GetVulnerabilityUsingGET(params *GetVulnerabilityUsingGETParams) (*GetVulnerabilityUsingGETOK, error) {
+func (a *Client) GetVulnerabilityUsingGET(params *GetVulnerabilityUsingGETParams, authInfo runtime.ClientAuthInfoWriter) (*GetVulnerabilityUsingGETOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetVulnerabilityUsingGETParams()
@@ -98,6 +100,7 @@ func (a *Client) GetVulnerabilityUsingGET(params *GetVulnerabilityUsingGETParams
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetVulnerabilityUsingGETReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

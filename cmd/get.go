@@ -36,7 +36,11 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("get called")
 
-		resp, err := client.Workspaces.GetWorkspacesUsingGET(nil)
+		// In the case the swagger specs has security definitions
+		resp, err := client.Workspaces.GetWorkspacesUsingGET(nil, hmacAuth)
+		// In the case the swagger specs has NO security definitions
+		// See the `init()` function's setup of the `cmd/root.go` too.
+		//resp, err := client.Workspaces.GetWorkspacesUsingGET(nil)
 		if err != nil {
 			log.Fatal(err)
 		}
