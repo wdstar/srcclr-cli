@@ -21,7 +21,6 @@ import (
 	"os"
 
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/strfmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -32,9 +31,9 @@ import (
 )
 
 var (
-	cfgFile  string
-	client   *apiclient.VeracodeSourceClearAPISpecification
-	hmacAuth runtime.ClientAuthInfoWriter
+	cfgFile      string
+	srcclrClient *apiclient.VeracodeSourceClearAPISpecification
+	hmacAuth     runtime.ClientAuthInfoWriter
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -75,27 +74,24 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 	// Default client for SourceClear API
-	client = apiclient.Default
+	srcclrClient = apiclient.Default
 	// Custom client
-	//client = apiclient.New(
+	//srcclrClient = apiclient.New(
 	//	httptransport.New("api.sourceclear.io", "/", []string{"https"}), strfmt.Default)
-	hmacAuth = runtime.ClientAuthInfoWriterFunc(
-		func(r runtime.ClientRequest, _ strfmt.Registry) error {
-			// TODO: Enabling HMAC Authentication
-			// https://help.veracode.com/reader/LMv_dtSHyb7iIxAQznC~9w/hn2qc_7fz3zFYV~e4ulRaQ
-			hmacStr := "********"
-			return r.SetHeaderParam("Authorization", hmacStr)
-		})
+
+	keyID := os.Getenv("VERACODE_API_KEY_ID")
+	keySecret := os.Getenv("VERACODE_API_KEY_SECRET")
+	hmacAuth = apiclient.HMACAuth(keyID, keySecret)
 
 	// In the case the swagger specs has NO security definitions
-	switch transport := client.Transport.(type) {
+	switch transport := srcclrClient.Transport.(type) {
 	case *httptransport.Runtime:
 		transport.DefaultAuthentication = hmacAuth
 		// Child clients
-		client.Issues.SetTransport(transport)
-		client.Registry.SetTransport(transport)
-		client.Scans.SetTransport(transport)
-		client.Workspaces.SetTransport(transport)
+		srcclrClient.Issues.SetTransport(transport)
+		srcclrClient.Registry.SetTransport(transport)
+		srcclrClient.Scans.SetTransport(transport)
+		srcclrClient.Workspaces.SetTransport(transport)
 	}
 }
 
