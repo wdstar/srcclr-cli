@@ -14,5 +14,6 @@ dist/
 *.out
 
 .idea/
+.vscode/
 
 vendor/
