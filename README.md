@@ -1,4 +1,5 @@
 # srcclr-cli
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=wdstar_srcclr-cli&metric=alert_status)](https://sonarcloud.io/dashboard?id=wdstar_srcclr-cli)
 
 SourceClear CLI
 
